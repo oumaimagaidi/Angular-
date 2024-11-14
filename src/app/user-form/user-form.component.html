@@ -1,0 +1,112 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <!-- First Name Field -->
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" formControlName="firstName" class="form-control" />
+        <div *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched">
+            <small class="text-danger" *ngIf="userForm.get('firstName')?.hasError('required')">
+                First Name is required.
+            </small>
+            <small class="text-danger" *ngIf="userForm.get('firstName')?.hasError('minlength')">
+                First Name must be at least 3 characters long.
+            </small>
+        </div>
+    </div>
+
+    <!-- Last Name Field -->
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" formControlName="lastName" class="form-control" />
+        <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched">
+            <small class="text-danger" *ngIf="userForm.get('lastName')?.hasError('required')">
+                Last Name is required.
+            </small>
+            <small class="text-danger" *ngIf="userForm.get('lastName')?.hasError('minlength')">
+                Last Name must be at least 3 characters long.
+            </small>
+        </div>
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" class="form-control" />
+        <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+            <small class="text-danger" *ngIf="userForm.get('email')?.hasError('required')">
+                Email is required.
+            </small>
+            <small class="text-danger" *ngIf="userForm.get('email')?.hasError('email')">
+                Please enter a valid email address.
+            </small>
+        </div>
+    </div>
+
+    <!-- Address Aggregation Form -->
+    <div class="form-group" formGroupName="adresse">
+        <label>Address</label>
+
+        <!-- Street -->
+        <div class="form-group">
+            <label for="street">Street</label>
+            <input type="text" id="street" formControlName="street" class="form-control" />
+            <div *ngIf="userForm.get('adresse.street')?.invalid && userForm.get('adresse.street')?.touched">
+                <small class="text-danger">Street is required.</small>
+            </div>
+        </div>
+
+        <!-- Number -->
+        <div class="form-group">
+            <label for="number">Number</label>
+            <input type="text" id="number" formControlName="number" class="form-control" />
+            <div *ngIf="userForm.get('adresse.number')?.invalid && userForm.get('adresse.number')?.touched">
+                <small class="text-danger" *ngIf="userForm.get('adresse.number')?.hasError('required')">
+                    Number is required.
+                </small>
+                <small class="text-danger" *ngIf="userForm.get('adresse.number')?.hasError('pattern')">
+                    Number must be numeric.
+                </small>
+            </div>
+        </div>
+
+        <!-- City -->
+        <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" formControlName="city" class="form-control" />
+            <div *ngIf="userForm.get('adresse.city')?.invalid && userForm.get('adresse.city')?.touched">
+                <small class="text-danger">City is required.</small>
+            </div>
+        </div>
+
+        <!-- Postal Code -->
+        <div class="form-group">
+            <label for="postalCode">Postal Code</label>
+            <input type="text" id="postalCode" formControlName="postalCode" class="form-control" />
+            <div *ngIf="userForm.get('adresse.postalCode')?.invalid && userForm.get('adresse.postalCode')?.touched">
+                <small class="text-danger" *ngIf="userForm.get('adresse.postalCode')?.hasError('required')">
+                    Postal Code is required.
+                </small>
+                <small class="text-danger" *ngIf="userForm.get('adresse.postalCode')?.hasError('pattern')">
+                    Postal Code must be 5 digits.
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Section -->
+    <div formArrayName="skills">
+        <div *ngFor="let skill of skills.controls; let i = index">
+          <input type="text" [formControlName]="i" class="form-control" placeholder="Skill" />
+          <button type="button" (click)="removeSkill(i)">Remove</button>
+          <div *ngIf="skill.invalid && skill.touched">
+            <small class="text-danger">Skill is required.</small>
+          </div>
+        </div>
+        <button type="button" (click)="addSkill()">Add Skill</button>
+      </div>
+      
+
+    <!-- Submit and Reset Buttons -->
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid" (click)="onSubmit()">Save</button>
+
+    <button type="button" class="btn btn-secondary" (click)="onReset()">Reset</button>
+</form>

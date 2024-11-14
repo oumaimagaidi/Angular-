@@ -1,0 +1,28 @@
+<form #addForm="ngForm" (ngSubmit)="showForm(addForm)">
+    <div class="form-group">
+      <label for="">Title</label>
+      <input type="text" class="form-control" name="title" ngModel #t="ngModel"  required minlength="4">
+    
+    <!--  <small class="text-danger" *ngIf="t.invalid && t.touched"> required field!</small>-->
+      <small class="text-danger" *ngIf="t.errors?.['required'] && t.touched"> required field!</small>
+      <small class="text-danger" *ngIf="t.errors?. ['minlength']&& t.touched"> at least 4</small>
+    </div>
+  
+
+
+    <div class="form-group">
+      <label for="">image</label>
+      <input type="file" class="form-control" name="image" ngModel #image="ngModel" >
+    </div>
+  
+  <div class="form-group">
+      <label for="">description</label>
+      <textarea rows="3" cols="4" class="form-control" name="desc" ngModel #desc="ngModel" ></textarea>
+    </div>
+    <input type="checkbox" name="available" #available="ngModel" ngModel > available
+    <input type="checkbox" name="available" #available="ngModel" ngModel > Not available
+   
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+  </form>

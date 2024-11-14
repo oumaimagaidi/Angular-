@@ -1,0 +1,11 @@
+<div class="container">
+  <span>Search: </span><input type="text" [(ngModel)]="titre">
+  <div class="row" >
+    
+    <div class="col-md-4" style="margin-bottom: 20px" *ngFor="let cat of categories | search:titre"  >
+    <app-card-category>   [category]="cat" </app-card-category>
+      <router-outlet></router-outlet> 
+      </div>
+    
+  </div>
+</div>
